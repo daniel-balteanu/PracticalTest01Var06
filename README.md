@@ -1,1 +1,2 @@
-# PracticalTest01Var06
+Balteanu Daniel
+Grupa 341C1
