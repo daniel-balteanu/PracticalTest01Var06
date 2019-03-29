@@ -1,5 +1,6 @@
 package ro.pub.cs.systems.eim.practicaltest01var06;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +30,10 @@ public class PracticalTest01Var03ChooseNumber extends AppCompatActivity {
                         startActivityForResult(intent, Constants.SECOND_REQ_CODE);
                     }
                 }
-
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("ro.pub.cs.systems.eim.practicaltest01var06", "ro.pub.cs.systems.eim.practicaltest01var06.PracticalTest01Var06Service"));
+                startService(intent);
+                Log.d("DEBUG:", "Service started");
 
 
             }

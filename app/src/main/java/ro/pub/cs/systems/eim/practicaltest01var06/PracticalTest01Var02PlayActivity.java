@@ -1,6 +1,8 @@
 package ro.pub.cs.systems.eim.practicaltest01var06;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,6 +55,8 @@ public class PracticalTest01Var02PlayActivity extends AppCompatActivity {
     private int received_number = -1;
     Random r = new Random();
     private SomeButtonListener listener = new SomeButtonListener();
+    private StartedServiceBroadcastReceiver startedServiceBroadcastReceiver;
+    private IntentFilter startedServiceIntentFilter;
 
 
 
@@ -80,7 +84,35 @@ public class PracticalTest01Var02PlayActivity extends AppCompatActivity {
         }
 
 
+        startedServiceBroadcastReceiver = new StartedServiceBroadcastReceiver(guess_text);
 
+        startedServiceIntentFilter = new IntentFilter();
+        startedServiceIntentFilter.addAction("SERVICE_VALUE");
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        registerReceiver(startedServiceBroadcastReceiver, startedServiceIntentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(startedServiceBroadcastReceiver);
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("ro.pub.cs.systems.eim.practicaltest01var06", "ro.pub.cs.systems.eim.practicaltest01var06.PracticalTest01Var06Service"));
+        stopService(intent);
+
+        super.onDestroy();
     }
 
     @Override
